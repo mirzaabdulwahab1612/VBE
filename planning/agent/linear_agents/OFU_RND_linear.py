@@ -198,14 +198,6 @@ class LinearNet(torch.nn.Module):
     def __init__(self, inputSize, outputSize, bias=True):
         super(LinearNet, self).__init__()
         self.net = torch.nn.Linear(inputSize, outputSize, bias=bias)
-
-        # if(zero_init):
-        #     for param in self.net.parameters():
-        #         param.data.fill_(0)
-        # else:
-        #     torch.nn.init.normal_(self.net.weight, mean=prior_mean, std=prior_variance)
-        #     # torch.nn.init.normal_(self.net.weight, mean=prior_mean)
-        #     # torch.nn.init.trunc_normal_(self.net.weight, mean=prior_mean, std=(1.0/np.power(inputSize, 1/2)), a=prior_mean-2, b=prior_mean+2)
     
     def forward(self, x):
         return self.net(x)

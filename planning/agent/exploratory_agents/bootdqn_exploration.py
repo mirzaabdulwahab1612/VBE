@@ -182,9 +182,6 @@ class BootstrappedDqn():
       q_values = self._forward[self._active_head](batched_obs)[0].numpy()
       action = self._rng.choice(np.flatnonzero(q_values == q_values.max()))
 
-      # if(np.argmax(observation) == 0):
-      #   print(f"time: {self.time_step//30} ; State: {np.argmax(observation)} Number of unique states: {len(self.unique_states)} , test: {self.num_unique_states[self.time_step]} , first_visits: {self.first_visits[tuple([np.argmax(observation)])]}")
-      #   print(f"q_values: {q_values} action: {action}")
     return int(action)
 
   def start(self, observation):

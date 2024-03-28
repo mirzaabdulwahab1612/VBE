@@ -206,12 +206,7 @@ class SARSA():
                     exit("Invalid action type")
 
                 uncertainty_bonus = self.c * (iunc)
-                # value_new = (val + uncertainty_bonus).data.cpu().numpy()
                 value_new = uncertainty_bonus.data.cpu().numpy()
-                # if(not target_action):
-                #     if(np.argmax(state) == 0):
-                #         print(f"time: {self.time_step//30} ; State: {np.argmax(state)} Number of unique states: {len(self.unique_states)} , first_visits: {self.first_visits[tuple([np.argmax(state)])]}")
-                #         print(f"val: {val}, iunc: {iunc}, uncertainty_bonus: {uncertainty_bonus} value_new: {value_new}")
             else:
                 value_new = torch.zeros((self.num_action)).data.cpu().numpy()
                 

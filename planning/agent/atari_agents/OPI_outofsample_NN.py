@@ -57,17 +57,11 @@ class OPI():
         self.rand_pred = []
         self.target_rand_pred = []
         for i in range(self.num_rvecs):
-            # change: RQFs have the same architecture as the Q-function updating CNN as well
-            # self.rand_target.append(Net(input_size, self.num_action, rqf_target=True).to(self.device))
-            # self.rand_pred.append(Net(input_size, self.num_action).to(self.device))
-            # self.target_rand_pred.append(Net(input_size, self.num_action).to(self.device))
-
-            # change: RQFs have the same representation network (weights), only updating the linear layer
             self.rand_target.append(RVFs(input_size, self.num_action).to(self.device))
             self.rand_pred.append(RVFs(input_size, self.num_action).to(self.device))
             self.target_rand_pred.append(RVFs(input_size, self.num_action).to(self.device))
 
-        # change: RQFs have the same representation network (weights), only updating the linear layer
+        # RQFs have the same representation network (weights), only updating the linear layer
         for i in range(self.num_rvecs):
             self.rand_pred[i].representation.load_state_dict(self.rand_target[i].representation.state_dict())
 
@@ -88,16 +82,13 @@ class OPI():
 
         net_params = list(self.wvec.parameters())
         for i in range(self.num_rvecs):
-            # change: RQFs have the same architecture as the Q-function updating CNN as well
-            # net_params += list(self.rand_pred[i].parameters())
-
-            # change: RQFs have the same representation network (weights), only updating the linear layer
+            # RQFs have the same representation network (weights), only updating the linear layer
             net_params += list(self.rand_pred[i].net.parameters())
         # Optimizer
         self.optimizer = optim.Adam(net_params, lr=self.alpha)
         self.loss_fn = torch.nn.MSELoss(reduction='mean')
 
-        # new change: updating after 1000 random steps
+        # updating after 1000 random steps (warm-up to fill buffer)
         self.start_training_step = 1000
         
         self.path = model_save_path
@@ -126,7 +117,7 @@ class OPI():
             for i in range(self.num_rvecs):
                 self.target_rand_pred[i].load_state_dict(self.rand_pred[i].state_dict())
 
-        # new change: updating after 1000 random steps
+        # updating network after warm-up steps
         if((self.time_step > self.start_training_step) and (self.replay_buffer_train.get_buffer_size() > self.mini_batch_size)):
             self.start_training = True
             if self.time_step % self.update_network_freq == 0:
@@ -136,7 +127,7 @@ class OPI():
         self.current_action = copy.deepcopy(next_act)
         self.time_step += 1
 
-        # new change: save the model
+        # save the model
         if self.time_step % self.model_save_frequency == 0:
             self.save_policy(self.path)
 
@@ -301,7 +292,6 @@ class Net(torch.nn.Module):
             torch.nn.Linear(448, outputSize)
         )
 
-        # new change: initializing the weights of the linear layers with 1 scale for target RQFs
         lin_scale = 0.01
         if(rqf_target):
             lin_scale = 1
@@ -315,7 +305,6 @@ class Net(torch.nn.Module):
                 torch.nn.init.orthogonal_(p.weight, np.sqrt(2))
                 p.bias.data.zero_()
 
-        # new change: initializing the weights of the linear layers with 1 scale for target RQFs
         for i in range(len(self.net)):
             if type(self.net[i]) == torch.nn.Linear:
                 torch.nn.init.orthogonal_(self.net[i].weight, lin_scale)

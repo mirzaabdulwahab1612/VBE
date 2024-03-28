@@ -360,7 +360,7 @@ if __name__ == '__main__':
     parser.add_argument('--agent_type', help='ddqn-egreedy or opi', type=str, default='opi')
     parser.add_argument('--runs', help='number of runs in parallel', type=int, default=0)
     parser.add_argument('--bonus_scale', help='Scale for VBE', type=int, default=10)
-    parser.add_argument('--num_rvecs', help='Scale for VBE', type=int, default=1)
+    parser.add_argument('--num_rvecs', help='Ensemble for VBE', type=int, default=1)
 
     args = parser.parse_args()
 

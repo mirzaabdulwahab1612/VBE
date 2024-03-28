@@ -146,7 +146,6 @@ class BootstrappedDqn():
       next_q_values = target_net(next_hidden_state).detach()
       target_value, _ = torch.max(next_q_values, dim=-1)
       target_y = r_t + z_t[:, k] + self._discount * d_t * target_value
-      # loss = self.loss_fn(train_value, target_y) * m_t[:, k]
       loss = torch.square(train_value - target_y) * m_t[:, k]
       loss = torch.mean(loss)
 
@@ -214,7 +213,7 @@ class BootstrappedDqn():
       minibatch = self._replay.sample(self._batch_size)
       self._step(minibatch)
 
-    # new change: save the model
+    # save the model
     if self.time_step % self.model_save_frequency == 0:
       self.save_policy(self.path)
     

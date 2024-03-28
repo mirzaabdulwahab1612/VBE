@@ -22,20 +22,13 @@ class riverswim():
         self.a1FailMidGoLeft = 0.1
         self.a1FailMidStay = 0.7
         self.a1SuccessRight = 0.3
-
-        # Original sigma = 0.01
         self.sigma = 0.01
-        # self.sigma = 0.1
-        # No noise
-        # self.sigma = 0.0
 
         self.goal_coor = self.max - self.goal_dimension #1000#
 
         self.was_reset = False
 
-        # self.np_random = params.np_random
         self.logger = params.logger
-
         self.np_random_start = np.random.RandomState(params.np_random_seed)
         self.np_random_reward = np.random.RandomState(params.np_random_seed)
         self.np_random_trans = np.random.RandomState(params.np_random_seed)
@@ -50,37 +43,6 @@ class riverswim():
         params.environment_params.obs_limits = [[0.0,1.0,1.0]]
 
         self.time_step = 0
-
-        # self.max_reward = None
-
-        # self.num_trans = 100
-
-        # self.dist_data = DummyObject()
-        # self.dist_data.current_observation = []
-        # self.dist_data.current_action = []
-        # self.dist_data.next_observation = []
-        # self.dist_data.next_reward = []
-        # self.dist_data.next_terminal = []
-        # succ_reward = 0
-        # succ_right = 0
-        # for i in np.arange(0,1,0.01):
-        #     p = i
-        #     current_obs = np.array([p])
-        #     for k in range(self.num_action):
-        #         for j in range(self.num_trans):
-        #             self.set_state(current_obs)
-        #             next_obs, next_reward, next_terminal, _ = self.step(k)
-        #             if next_reward == 1.0:
-        #                 succ_reward += 1
-        #             if k==1 and current_obs[0] < next_obs[0]:
-        #                 succ_right += 1
-        #             self.dist_data.current_observation.append(current_obs)
-        #             self.dist_data.current_action.append(k)
-        #             self.dist_data.next_observation.append(next_obs)
-        #             self.dist_data.next_reward.append(next_reward)
-        #             self.dist_data.next_terminal.append(next_terminal)
-        # print(succ_reward,succ_right,len(self.dist_data.current_observation))
-
 
     def set_state(self, state):
         self.state = np.zeros(1)
@@ -129,15 +91,6 @@ class riverswim():
         n = self.np_random_trans.normal(scale=self.sigma)
 
         temp_displacement = self.def_displacement
-
-        # if a == 1:
-        #     # fails to swim upstream
-        #     if (self.np_random.uniform(low=0, high=1.0) <= 0.3):
-        #         temp_displacement = 0.0
-        #         n = 0.0
-        #     # slips and swims downstream
-        #     if (self.np_random.uniform(low=0, high=1.0) <= 0.1):
-        #         a = 0
 
         # if in 1st bin
         if (pos <= self.min + self.goal_dimension):
@@ -189,26 +142,10 @@ class riverswim():
         terminal = False
         reward = self._reward(pos)
 
-        # if self.max_reward is None:
-        #     self.max_reward = (2*reward)
-        # elif reward > self.max_reward:
-        #     self.max_reward = (2*reward)
-        #
-        # reward -= self.max_reward
-
-        # if terminal:
-        #     if self.print_mode:
-        #         print("Reached terminal")
-        #     self.reset()
-
         self.time_step += 1
-
-        # if(self.time_step > 1 and self.time_step % 1 == 0):
-        #     self._render()
 
         return (self._get_ob(), reward, terminal, {})
 
-    
     def _render(self, mode='human', close=False):
         fig, ax = plt.subplots()
         ax.set_ylim([0, 1])
@@ -230,7 +167,6 @@ class riverswim():
     @staticmethod
     def num_action():
         return 2
-
 
 def init(params):
     return riverswim(params)

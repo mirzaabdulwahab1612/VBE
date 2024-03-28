@@ -49,39 +49,7 @@ class MountainCar():
         params.environment_params.start_range = [[-0.6,-0.4],[0.0,0.0]]
 
         self.time_step = 0
-
-        # Original sigma = 0.01
-        # self.sigma = 0.01
-        # No noise
         self.sigma = 0.0
-
-        # self.dist_data = DummyObject()
-        # self.dist_data.current_observation = []
-        # self.dist_data.current_action = []
-        # self.dist_data.next_observation = []
-        # self.dist_data.next_reward = []
-        # self.dist_data.next_terminal = []
-        # for i in np.arange(0,1,0.01):
-        #     p = self.pos_min + (self.pos_range*i)
-        #     for j in np.arange(0,1,0.01):
-        #         v = self.vel_min + (self.vel_range*j)
-        #         current = np.array([p,v])
-        #         if self.normalized:
-        #             current_obs = current
-        #             s0 = (current_obs[0] - self.pos_min) / self.pos_range
-        #             s1 = (current_obs[1] - self.vel_min) / self.vel_range
-        #             current_obs = np.array([s0, s1])
-        #         else:
-        #             current_obs = current
-        #         for k in range(self.num_action):
-        #             self.set_state(current)
-        #             next_obs, next_reward, next_terminal, _ = self.step(k)
-        #             self.dist_data.current_observation.append(current_obs)
-        #             self.dist_data.current_action.append(k)
-        #             self.dist_data.next_observation.append(next_obs)
-        #             self.dist_data.next_reward.append(next_reward)
-        #             self.dist_data.next_terminal.append(next_terminal)
-
 
     def internal_reset(self):
         if not self.was_reset:

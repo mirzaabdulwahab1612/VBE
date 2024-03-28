@@ -74,7 +74,7 @@ class VBEACB():
         self.optimizer = optim.Adam(net_params, lr=self.alpha)
         self.loss_fn = torch.nn.MSELoss(reduction='mean')
 
-        # new change: updating after 1000 random steps
+        # updating after 1000 random steps (warm-up to fill buffer)
         self.start_training_step = 1000
 
         self.path = model_save_path
@@ -102,7 +102,7 @@ class VBEACB():
             self.target_wvec.load_state_dict(self.wvec.state_dict())
             self.target_intrinsic_wvec.load_state_dict(self.intrinsic_wvec.state_dict())
 
-        # new change: updating after 1000 random steps
+        # updating network after warm-up steps
         if((self.time_step > self.start_training_step) and (self.replay_buffer_train.get_buffer_size() > self.mini_batch_size)):
             self.start_training = True
             if self.time_step % self.update_network_freq == 0:
@@ -112,7 +112,7 @@ class VBEACB():
         self.current_action = copy.deepcopy(next_act)
         self.time_step += 1
 
-        # new change: save the model
+        # save the model
         if self.time_step % self.model_save_frequency == 0:
             self.save_policy(self.path)
 

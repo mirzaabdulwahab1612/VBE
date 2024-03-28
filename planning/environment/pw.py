@@ -60,19 +60,12 @@ class puddleworld():
 
         self.goal_dimension = 0.05
         self.def_displacement = 0.05
-
-        # Original sigma = 0.1
         self.sigma = 0.1
-        # self.sigma = 0.01
-        # No noise
-        # self.sigma = 0.0
 
         self.goal_x_coor = self.pworld_max_x - self.goal_dimension #1000#
         self.goal_y_coor = self.pworld_max_y - self.goal_dimension #1000#
 
         self.was_reset = False
-
-        # self.np_random = params.np_random
         self.logger = params.logger
 
         self.np_random_start = np.random.RandomState(params.np_random_seed)
@@ -141,35 +134,6 @@ class puddleworld():
         nx = self.np_random_trans.normal(scale=self.sigma)
         ny = self.np_random_trans.normal(scale=self.sigma)
 
-        # #--type1
-        # if a == 0: #up
-        #     ypos += self.def_displacement
-        # elif a == 1: #down
-        #     ypos -= self.def_displacement
-        # elif a == 2: #right
-        #     xpos += self.def_displacement
-        # else: #left
-        #     xpos -= self.def_displacement
-        #
-        # xpos += nx
-        # ypos += ny
-        # #--type1
-
-        # #--type2
-        # if a == 0: #up
-        #     ypos += (self.def_displacement+ny)
-        #     xpos += nx
-        # elif a == 1: #down
-        #     ypos -= (self.def_displacement+ny)
-        #     xpos += nx
-        # elif a == 2: #right
-        #     xpos += (self.def_displacement+nx)
-        #     ypos += ny
-        # else: #left
-        #     xpos -= (self.def_displacement+nx)
-        #     ypos += ny
-        # #--type2
-
         #--type3
         if a == 0: #up
             ypos += (self.def_displacement+ny)
@@ -203,9 +167,6 @@ class puddleworld():
 
         self.time_step += 1
 
-        # if(self.time_step > 2000 and self.time_step % 1 == 0):
-        #     self._render()
-
         return (self._get_ob(), reward, terminal, {})
 
     def _render(self, mode='human', close=False):
@@ -216,9 +177,6 @@ class puddleworld():
         circle3 = plt.Circle((self.state), 0.01, color='r')
 
         fig, ax = plt.subplots() # note we must use plt.subplots, not plt.subplot
-        # (or if you have an existing figure)
-        # fig = plt.gcf()
-        # ax = fig.gca()
 
         ax.add_patch(circle1)
         ax.add_patch(circle2)
@@ -229,9 +187,6 @@ class puddleworld():
         ax.clear()
         plt.close()
         
-        # plt.show()
-
-
     @staticmethod
     def state_dim():
         return 2
@@ -239,7 +194,6 @@ class puddleworld():
     @staticmethod
     def num_action():
         return 4
-
 
 def init(params):
     return puddleworld(params)

@@ -267,15 +267,6 @@ class Net(torch.nn.Module):
             torch.nn.ReLU(),
             torch.nn.Linear(num_hidden_units, outputSize, bias=True),
         )
-
-        # torch.nn.init.trunc_normal_(self.net[-5].weight, mean=prior_mean, std=(1.0/np.power(inputSize, 1/2)), a=prior_mean-2, b=prior_mean+2)
-        # torch.nn.init.trunc_normal_(self.net[-3].weight, mean=prior_mean, std=(1.0/np.power(num_hidden_units, 1/2)), a=prior_mean-2, b=prior_mean+2)
-        # torch.nn.init.trunc_normal_(self.net[-1].weight, mean=prior_mean, std=(1.0/np.power(num_hidden_units, 1/2)), a=prior_mean-2, b=prior_mean+2)
-        # torch.nn.init.xavier_uniform_(self.net[-5].weight, gain=torch.nn.init.calculate_gain('relu'))
-        # torch.nn.init.xavier_uniform_(self.net[-3].weight, gain=torch.nn.init.calculate_gain('relu'))
-        # torch.nn.init.xavier_uniform_(self.net[-1].weight, gain=torch.nn.init.calculate_gain('linear'))
-        # torch.nn.init.normal_(self.net.weight, mean=prior_mean)
-        # torch.nn.init.trunc_normal_(self.net.weight, mean=prior_mean, std=(1.0/np.power(num_hidden_units, 1/2)), a=prior_mean-2, b=prior_mean+2)
     
     def forward(self, x):
         return self.net(x)

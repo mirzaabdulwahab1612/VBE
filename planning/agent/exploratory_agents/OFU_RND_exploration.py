@@ -178,10 +178,6 @@ class SARSA():
             if self.start_training:
                 intrinsic_val = intrinsic_wvec.forward(hidden_state)
                 value_new = (self.p*intrinsic_val).data.cpu().numpy()
-                # if(not target_action):
-                #     if(np.argmax(state) == 0):
-                #         print(f"time: {self.time_step//30} ; State: {np.argmax(state)} Number of unique states: {len(self.unique_states)} , first_visits: {self.first_visits[tuple([np.argmax(state)])]}")
-                #         print(f"intrinsic_val: {intrinsic_val} value_new: {value_new}")
             else:
                 value_new = torch.zeros((self.num_action)).data.cpu().numpy()
                 
