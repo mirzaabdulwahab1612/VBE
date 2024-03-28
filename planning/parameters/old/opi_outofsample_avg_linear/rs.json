@@ -1,0 +1,50 @@
+{
+
+    "basic": {
+            "pytorch": true,
+            "num_threads": 1,
+            "n_gpus": 1,
+            "environment": "rs",
+            "agent": "linear_agents.OPI_outofsample_avg_linear",
+            "feature_constructor": "tc",
+            "path": "results",
+            "prefix": "rs_OPI_outofsample_avg_linear",
+            "num_steps": 50000,
+            "max_steps_episode": 10000,
+            "num_episodes": 10000,
+            "save_policy_freq": 10000,
+            "num_repeats": 5
+    },
+    "environment_params": {
+            "all_start_mode": false,
+            "print_mode": true,
+            "print_frequency": 1000
+    },
+    "agent_params_orig": {
+            "gamma": 0.99,
+            "optimizer_type": ["adam"],
+            "rvfs_target_polic_type": ["uniform", "original"],
+            "rvfs_update_all": [false, true],
+            "action_type": ["max"],
+            "num_rvecs": [1, 8],
+            "alpha": [1e-3],
+            "prior_mean": [0.0],
+            "p": [1.0, 3.0],
+            "update_freq_policy": 4,
+            "num_updates": 1,
+            "mini_batch_size": 128,
+            "print_mode": true,
+            "print_frequency": 1000
+    },
+    "feature_constructor_params_orig": {
+            "num_tiles": [4],
+            "num_tilings": [32],
+            "feature_dim": [128],
+            "use_bias": false,
+            "normalized": true,
+            "rotate_dense": false,
+            "tile_independently": false,
+            "use_hash": true
+
+    }
+}

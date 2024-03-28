@@ -1,0 +1,51 @@
+{
+
+        "basic": {
+                "pytorch": true,
+                "num_threads": 1,
+                "n_gpus": 1,
+                "environment": "mc",
+                "agent": "OPI_NN_linear_evec",
+                "feature_constructor": "tc",
+                "path": "results",
+                "prefix": "mc_OPI_NN_linear_evec",
+                "num_steps": 50000,
+                "max_steps_episode": 10000,
+                "num_episodes": 10000,
+                "save_policy_freq": 10000,
+                "num_repeats": 5
+        },
+        "environment_params": {
+                "normalized": true,
+                "all_start_mode": false,
+                "sparse_reward": true,
+                "print_mode": true,
+                "print_frequency": 1000
+        },
+        "agent_params_orig": {
+                "gamma": 1.0,
+                "optimizer_type": ["adam", "sgd", "sgd_with_mom"],
+                "num_rvecs": [1, 8],
+                "alpha": [1e-3],
+                "prior_mean": [0.0, 3.0],
+                "p": [0.1],
+                "update_freq_policy": 64,
+                "num_updates": 20,
+                "mini_batch_size": 64,
+                "behaviour_greedy": false,
+                "target_off_policy": false,
+                "print_mode": true,
+                "print_frequency": 1000
+        },
+        "feature_constructor_params_orig": {
+                "num_tiles": [8],
+                "num_tilings": [8],
+                "feature_dim": [512],
+                "use_bias": false,
+                "normalized": true,
+                "rotate_dense": false,
+                "tile_independently": false,
+                "use_hash": true
+    
+        }
+}

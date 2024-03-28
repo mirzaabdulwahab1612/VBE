@@ -1,0 +1,48 @@
+{
+
+    "basic": {
+            "pytorch": true,
+            "num_threads": 1,
+            "n_gpus": 1,
+            "environment": "rs",
+            "agent": "NNs_agents.OPI_NN",
+            "feature_constructor": "obs",
+            "path": "results",
+            "prefix": "rs_OPI_NN",
+            "num_steps": 50000,
+            "max_steps_episode": 10000,
+            "num_episodes": 10000,
+            "save_policy_freq": 10000,
+            "num_repeats": 5
+    },
+    "environment_params": {
+            "all_start_mode": false,
+            "print_mode": true,
+            "print_frequency": 1000
+    },
+    "agent_params_orig": {
+        "gamma": 0.99,
+        "optimizer_type": ["adam"],
+        "bonus_type": ["target", "outside"],
+        "num_rvecs": [1, 8],
+        "alpha": [1e-3],
+        "prior_mean": [0.0],
+        "p": [1, 3.0],
+        "num_hidden_units": 50,
+        "update_freq_policy": 4,
+        "num_updates": 1,
+        "mini_batch_size": 128,
+        "behaviour_greedy": false,
+        "target_off_policy": false,
+        "print_mode": true,
+        "print_frequency": 1000
+    },
+    "feature_constructor_params_orig": {
+        "use_bias": false,
+        "feature_dim": [1],
+        "pure_tabular": false,
+        "rotate_dense": false,
+        "input_action": false,
+        "num_bins": 1
+}
+}

@@ -1,0 +1,48 @@
+{
+
+        "basic": {
+                "pytorch": true,
+                "num_threads": 1,
+                "n_gpus": 1,
+                "environment": "pw",
+                "agent": "linear_agents.OFU_ACB_linear",
+                "feature_constructor": "tc",
+                "path": "results",
+                "prefix": "pw_OFU_ACB_linear",
+                "num_steps": 50000,
+                "max_steps_episode": 10000,
+                "num_episodes": 10000,
+                "save_policy_freq": 10000,
+                "num_repeats": 30
+        },
+        "environment_params": {
+                "all_start_mode": false,
+                "print_mode": true,
+                "print_frequency": 1000
+        },
+        "agent_params_orig": {
+                "gamma": 0.99,
+                "optimizer_type": ["adam"],
+                "target_polic_type": ["optimistic", "greedy"],
+                "num_rvecs": [1, 2, 8, 20],
+                "alpha": [1e-3],
+                "p": [1.0],
+                "update_freq_policy": 4,
+                "num_updates": 1,
+                "mini_batch_size": 128,
+                "offline_eval": true,
+                "model_save_freq": 5000,
+                "eval_num_steps": 10000,
+                "print_mode": true,
+                "print_frequency": 1000
+        },
+        "feature_constructor_params_orig": {
+                "num_tiles": [5],
+                "num_tilings": [5],
+                "feature_dim": [128],
+                "use_bias": false,
+                "normalized": true,
+                "tile_independently": false,
+                "use_hash": true
+        }
+}

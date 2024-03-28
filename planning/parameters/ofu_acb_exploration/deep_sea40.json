@@ -1,0 +1,48 @@
+{
+
+        "basic": {
+                "pytorch": true,
+                "num_threads": 1,
+                "n_gpus": 1,
+                "environment": "deep_sea_orig",
+                "agent": "exploratory_agents.OFU_ACB_exploration",
+                "feature_constructor": "agg",
+                "path": "results",
+                "prefix": "deep_sea_40_OFU_ACB_exploration",
+                "num_steps": -1,
+                "max_steps_episode": -1,
+                "num_episodes": 10000,
+                "num_repeats": 3
+        },
+        "environment_params": {
+                "deterministic": true,
+                "randomize_actions": true,
+                "print_mode": true,
+                "print_frequency": 1000,
+                "grid_size": 40
+        },
+        "agent_params_orig": {
+                "gamma": 0.99,
+                "optimizer_type": ["adam"],
+                "num_rvecs": [1, 2, 8, 20],
+                "alpha": [1e-3],
+                "p": [1.0],
+                "update_freq_policy": 64,
+                "num_updates": 1,
+                "mini_batch_size": 128,
+                "offline_eval": false,
+                "model_save_freq": 400000,
+                "eval_num_steps": 10000,
+                "print_mode": true,
+                "print_frequency": 1000
+        },
+    
+        "feature_constructor_params_orig": {
+                "use_bias": false,
+                "feature_dim": [820],
+                "pure_tabular": true,
+                "rotate_dense": false,
+                "input_action": false,
+                "num_bins": 820
+        }
+    }

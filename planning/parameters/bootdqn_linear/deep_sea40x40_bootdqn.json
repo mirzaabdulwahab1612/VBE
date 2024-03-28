@@ -1,0 +1,56 @@
+{
+
+        "basic": {
+                "pytorch": true,
+                "num_threads": 1,
+                "n_gpus": 1,
+                "environment": "deep_sea_orig",
+                "agent": "linear_agents.bootdqn_linear",
+                "feature_constructor": "agg",
+                "path": "results",
+                "prefix": "deep_sea_40_bootdqn_linear",
+                "num_steps": -1,
+                "max_steps_episode": -1,
+                "num_episodes": 10000,
+                "num_repeats": 5
+        },
+        "environment_params": {
+                "deterministic": true,
+                "randomize_actions": true,
+                "print_mode": true,
+                "print_frequency": 1000,
+                "grid_size": 40
+        },
+        "agent_params_orig": {
+                "optimizer_type": ["adam"],
+                "gamma": 0.99,
+                "num_heads": [1, 2, 8, 20],
+                "alpha": [1e-3],
+                "prior_mean": [0.0],
+                "prior_scale": [1.0, 3.0, 10.0],
+                "mask_prob": [0.5],
+                "sgd_period": 1,
+                "epsilon_fn": 0.0,
+                "noise_scale": 0.0,
+                "weight_reward": false,
+                "buffer_size": 100000,
+                "nonlinear_rep": false,
+                "target_update_period": 4,
+                "batch_size": 128,
+                "min_replay_size": 128,
+                "offline_eval": true,
+                "model_save_freq": 40000,
+                "eval_num_steps": 10000,
+                "print_mode": true,
+                "print_frequency": 1000
+            },
+    
+        "feature_constructor_params_orig": {
+                "use_bias": false,
+                "feature_dim": [820],
+                "pure_tabular": true,
+                "rotate_dense": false,
+                "input_action": false,
+                "num_bins": 820
+        }
+    }

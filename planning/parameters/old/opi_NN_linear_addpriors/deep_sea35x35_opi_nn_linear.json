@@ -1,0 +1,45 @@
+{
+
+        "basic": {
+                "pytorch": true,
+                "num_threads": 1,
+                "n_gpus": 1,
+                "environment": "deep_sea",
+                "agent": "OPI_NN_linear",
+                "feature_constructor": "agg",
+                "path": "results",
+                "prefix": "OPI_NN_linear_deep_sea_35_obreg",
+                "num_steps": -1,
+                "max_steps_episode": -1,
+                "num_episodes": 10000,
+                "num_repeats": 5
+        },
+        "environment_params": {
+                "print_mode": true,
+                "print_frequency": 1000,
+                "grid_size": 35
+        },
+        "agent_params_orig": {
+                "gamma": 1.0,
+                "lambdaa": 0.9,
+                "alpha": [0.3, 0.1, 0.01, 0.001],
+                "p": [0.1, 0.01, 0.001],
+                "num_rvecs": 8,
+                "update_freq_policy": 64,
+                "num_updates": 20,
+                "mini_batch_size": 64,
+                "behaviour_greedy": false,
+                "target_off_policy": false,
+                "print_mode": true,
+                "print_frequency": 1000
+            },
+    
+        "feature_constructor_params_orig": {
+                "use_bias": false,
+                "feature_dim": [630],
+                "pure_tabular": true,
+                "rotate_dense": false,
+                "input_action": false,
+                "num_bins": 630
+        }
+    }
