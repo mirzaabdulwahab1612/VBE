@@ -1,5 +1,4 @@
 from agent.atari_agents.OPI_outofsample_NN import *
-from agent.atari_agents.ddqn_epsilon import *
 from agent.atari_agents.bdqnp_updated import *
 from agent.atari_agents.VBE_RND_Atari import *
 from agent.atari_agents.VBE_ACB_Atari import *
@@ -75,11 +74,11 @@ def main():
     agent_type = args.agent_type
     runs = args.runs
     # new change: save results in a folder with bonus scale
-    writer = SummaryWriter(f'runs_rebuttal/{agent_type}/{env_id}/{bonus_scale}/{runs}/')
+    writer = SummaryWriter(f'runs/{agent_type}/{env_id}/{bonus_scale}/{runs}/')
 
     torch.manual_seed(seed=runs)
     torch.backends.cudnn.deterministic = True
-    base_save_path = f"results_rebuttal/{agent_type}/{args.env}/{bonus_scale}/"
+    base_save_path = f"results/{agent_type}/{args.env}/{bonus_scale}/"
     if agent_type == "opi":
         agent = OPI(
             input_size,
@@ -131,22 +130,6 @@ def main():
             p = bonus_scale,
             target_polic_type = "greedy",
             model_save_path = f"{base_save_path}/{runs}/models/"
-        )
-    elif agent_type == "ddqn":
-        agent = DDQN(
-            input_size,
-            output_size,
-            gamma,
-            learning_rate,
-            np_random = np.random.RandomState(runs),
-            epsilon_init = 1.0,
-            epsilon_final = 0.01,
-            epsilon_decay_steps = 1000000,
-            target_update_freq = 10000,
-            update_network_freq = 4,
-            num_updates = 1,
-            mini_batch_size = mini_batch,
-            device = torch.device('cuda' if use_cuda else 'cpu')
         )
     elif agent_type == "bdqn":
         agent = BootstrappedDqn(
@@ -217,7 +200,7 @@ def main():
     # unc_data = [[0] * output_size]
 
     # new change: save results in a folder with bonus scale
-    base_save_path = f"results_rebuttal/{agent_type}/{args.env}/{bonus_scale}/"
+    base_save_path = f"results/{agent_type}/{args.env}/{bonus_scale}/"
     if not os.path.exists(base_save_path):
         try:
             os.makedirs(base_save_path)
