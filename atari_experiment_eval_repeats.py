@@ -182,8 +182,6 @@ def main():
 
     allStates = set()
     allStatesFull = set()
-    #allStates = set()
-    #allStatesFull = set()
 
     # initialize the environment and agent
     observation = environment.reset()
@@ -192,12 +190,6 @@ def main():
     step_reward = []
     episode_reward = []
     steps_per_episode = []
-    # unique_states_count = []
-    # unique_full_states_count = []
-    # unique_states_flag = []
-    # unique_full_states_flag = []
-    # val_data = [[0] * output_size]
-    # unc_data = [[0] * output_size]
 
     # new change: save results in a folder with bonus scale
     base_save_path = f"results/{agent_type}/{args.env}/{bonus_scale}/"
@@ -210,39 +202,13 @@ def main():
     np.save(f"{base_save_path}{runs}_step_reward.npy", step_reward)
     np.save(f"{base_save_path}{runs}_episode_reward.npy", episode_reward)
     np.save(f"{base_save_path}{runs}_steps_per_episode.npy", steps_per_episode)
-    # np.save(f"{base_save_path}{runs}_unique_states_count.npy", unique_states_count)
-    # np.save(f"{base_save_path}{runs}_unique_full_states_count.npy", unique_full_states_count)
-    # np.save(f"{base_save_path}{runs}_unique_states_flag.npy", unique_states_flag)
-    # np.save(f"{base_save_path}{runs}_unique_full_states_flag.npy", unique_full_states_flag)
-    # np.save(f"{base_save_path}{runs}_val_data.npy", val_data)
-    # np.save(f"{base_save_path}{runs}_unc_data.npy", unc_data)
 
     while True:
         global_update += 1
 
         states, rewards, dones, real_dones, log_rewards, full_states = environment.step(action)
-        # l1 = len(allStates)
-        # l2 = len(allStatesFull)
         allStates.add(hashlib.sha1(states[3,:,:]).hexdigest())
         allStatesFull.add(hashlib.sha1(states).hexdigest())
-        # l1_ = len(allStates)
-        # l2_ = len(allStatesFull)
-
-        # if l1_ > l1:
-        #     newStateFlag = 1
-        # else:
-        #     newStateFlag = 0
-
-        # if l2_ > l2:
-        #     newFullStateFlag = 1
-        # else:
-        #     newFullStateFlag = 0
-
-        # unique_states_count.append(len(allStates))
-        # unique_full_states_count.append(len(allStatesFull))
-        # unique_states_flag.append(newStateFlag)
-        # unique_full_states_flag.append(newFullStateFlag)
-
 
         if agent_type == "opi" or agent_type == "vbernd" or agent_type == "vbeacb":
             action, val, uncertainty_bonus, value = agent.step(np.float32(states) / 255., rewards, dones)
@@ -251,13 +217,6 @@ def main():
 
         sample_rall += log_rewards
         step_reward.append(rewards)
-
-        # if global_update > 1001:
-        #     val_data.append(val.data.cpu().numpy())
-        #     unc_data.append(uncertainty_bonus.data.cpu().numpy())
-        # else:
-        #     val_data.append(np.array(val))
-        #     unc_data.append(np.array(uncertainty_bonus))
 
         sample_step += 1
         if real_dones:
@@ -282,37 +241,6 @@ def main():
             temp_ = np.append(temp_, step_reward)
             np.save(f"{base_save_path}{runs}_step_reward.npy", temp_)
             del temp_
-
-            # temp_ = np.load(f"{base_save_path}{runs}_unique_states_count.npy")
-            # temp_ = np.append(temp_, unique_states_count)
-            # np.save(f"{base_save_path}{runs}_unique_states_count.npy", temp_)
-
-            # temp_ = np.load(f"{base_save_path}{runs}_unique_full_states_count.npy")
-            # temp_ = np.append(temp_, unique_full_states_count)
-            # np.save(f"{base_save_path}{runs}_unique_full_states_count.npy", temp_)
-
-            # temp_ = np.load(f"{base_save_path}{runs}_val_data.npy")
-            # temp_ = np.vstack((temp_, val_data))
-            # np.save(f"{base_save_path}{runs}_val_data.npy", temp_)
-
-            # temp_ = np.load(f"{base_save_path}{runs}_unc_data.npy")
-            # temp_ = np.vstack((temp_, unc_data))
-            # np.save(f"{base_save_path}{runs}_unc_data.npy", temp_)
-
-            # temp_ = np.load(f"{base_save_path}{runs}_unique_states_flag.npy")
-            # temp_ = np.append(temp_, unique_states_flag)
-            # np.save(f"{base_save_path}{runs}_unique_states_flag.npy", temp_)
-
-            # temp_ = np.load(f"{base_save_path}{runs}_unique_full_states_flag.npy")
-            # temp_ = np.append(temp_, unique_full_states_flag)
-            # np.save(f"{base_save_path}{runs}_unique_full_states_flag.npy", temp_)
-
-            # unique_states_count = []
-            # unique_full_states_count = []
-            # val_data = []
-            # unc_data = []
-            # unique_states_flag = []
-            # unique_full_states_flag = []
             step_reward = []
 
         if sample_episode % 100 == 0:
@@ -328,30 +256,6 @@ def main():
             np.save(f"{base_save_path}{runs}_steps_per_episode.npy", temp_)
             steps_per_episode = []
             del temp_           
-
-        # if global_update % 1000 == 0 and agent_type == "opi":
-
-        #     uncertainty_bonus_ = {}
-        #     for index, element in enumerate(uncertainty_bonus):
-        #         uncertainty_bonus_[str(index)] = element
-        #     writer.add_scalars('data/uncertainty_bonus', uncertainty_bonus_, global_update)
-        
-        #     value_ = {}
-        #     for index, element in enumerate(value):
-        #         value_[str(index)] = element
-        #     writer.add_scalars('data/value', value_, global_update)
-
-        #     val_ = {}
-        #     for index, element in enumerate(val):
-        #         val_[str(index)] = element
-        #     writer.add_scalars('data/val', val_, global_update)
-
-        # if global_step % 100 == 0:
-        #     print('Now Global Step :{}'.format(global_step))
-        #     torch.save(agent.model.state_dict(), model_path)
-        #     torch.save(agent.rnd.predictor.state_dict(), predictor_path)
-        #     torch.save(agent.rnd.target.state_dict(), target_path)
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
