@@ -2,6 +2,7 @@
 
 ## Running Atari experiments
 Use the following commands to run Atari experiments for different agents. 
+
 ```
 # VBE
 python atari_experiment_eval_repeats.py --env breakout --agent_type 'opi' --bonus_scale 10 --num_rvecs 1 --runs 0
@@ -21,7 +22,7 @@ env = [breakout, pong, qbert, pitfall, privateeye, gravitar]
 
 bonus_scale = [1, 3, 10] for bonus scale
 
-runs = [0, 1, 2, ...] for random repeats
+runs = [0, 1, 2, ...] random seed
 
 ## Running Control experiments
  Use the following commands for running Control experiments with linear function approximation and tilecoding. The config files for each agent type and environment are in the `parameters/` directory. The `--config_num` argument controls which set of parameters are used for the experiment. 
@@ -62,7 +63,7 @@ python online_experiment_eval_repeats.py --json_file parameters/ofu_rnd_nn/rs.js
 ```
 
 ## Running Pure Exploration experiments
-Use the following commands to run the pure exploration experiments. 
+Use the following commands to run the pure exploration experiments. There are separate config files in `parameters/` for each grid size : `[30, 35, 40, 45, 50]`. 
 
 ```
 # VBE
