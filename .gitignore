@@ -19,10 +19,8 @@
 *.fls
 *.run.xml
 *blx.bib
-code/planning/results
-code/planning/results_toreport
-code/planning/plotting
-code/planning/.ipynb_checkpoints
-code/planning/results_2
-code/planning/results_toreport
-code/planning/.vscode
+results
+runs
+.ipynb_checkpoints
+results_toreport
+.vscode
