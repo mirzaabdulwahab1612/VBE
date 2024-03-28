@@ -1,7 +1,14 @@
 # VBE
 
+## Setup
+To run the code you will need the packages in the files: `requirements.txt` and `setup.sh`.
+```
+pip install -r requirements.txt
+bash setup.sh
+```
+
 ## Running Atari experiments
-Use the following commands to run Atari experiments for different agents. 
+Use the following commands to run Atari experiments for different agents. The file `config.conf` contains the parameters for Atari experiments. Note: Set `UseGPU = False` if running on a CPU machine.
 
 ```
 # VBE
