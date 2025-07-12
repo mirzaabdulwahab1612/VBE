@@ -6,7 +6,7 @@
     </a>
 </p>
 
-![teaser_image](figs/pure_exploration_barplot.pdf)
+![teaser_image](figs/pure_exploration_barplot.png)
 
 If you find our code or paper helpful, please consider starring our repository and citing:
 ```
