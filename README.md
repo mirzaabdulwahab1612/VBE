@@ -19,7 +19,7 @@ If you find our code or paper helpful, please consider starring our repository a
 }
 ```
   
-### 1. Setup Environment
+## Setup Environment
 To run the code you will need the packages in the files: `requirements.txt` and `setup.sh`.
 ```
 pip install -r requirements.txt
