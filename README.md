@@ -84,3 +84,6 @@ python online_experiment_eval_repeats.py --json_file parameters/ofu_acb_nn/rs.js
 # RND
 python online_experiment_eval_repeats.py --json_file parameters/ofu_rnd_nn/rs.json --id 0 --config_num 0 --run_num 0
 ```
+
+### Note: 
+We will be pushing code for Atari soon. 
